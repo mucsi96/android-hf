@@ -22,28 +22,17 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements GooglePlusLoginCallbacks {
 
-    private WebView webView;
+    private WebAppInterface webAppInterface;
     private GooglePlusLoginService googlePlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        googlePlus = new GooglePlusLoginService(this);
-
-        setContentView(R.layout.activity_main);
-        webView = (WebView)findViewById(R.id.webview);
-        webView.loadUrl("http://192.168.1.104");
-        webView.setWebViewClient(new WebViewClient() {
-
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();
-            }
-        });
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        googlePlus = new GooglePlusLoginService(this, this);
+        webAppInterface = new WebAppInterface(this);
+        webAppInterface.load("http://192.168.1.104");
     }
 
     @Override
@@ -56,5 +45,10 @@ public class MainActivity extends Activity {
     protected void onStop() {
         super.onStop();
         googlePlus.disconnect();
+    }
+
+    @Override
+    public void onConnected(String accountName) {
+        Toast.makeText(this, "User " + accountName + " is connected!", Toast.LENGTH_LONG).show();
     }
 }

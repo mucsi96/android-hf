@@ -19,9 +19,11 @@ public class GooglePlusLoginService implements GoogleApiClient.ConnectionCallbac
     private Activity context;
     private GoogleApiClient mGoogleApiClient;
     private boolean mIntentInProgress;
+    private GooglePlusLoginCallbacks callbacks;
 
-    public GooglePlusLoginService(Activity context){
+    public GooglePlusLoginService(Activity context, GooglePlusLoginCallbacks callbacks){
         this.context = context;
+        this.callbacks = callbacks;
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -53,7 +55,7 @@ public class GooglePlusLoginService implements GoogleApiClient.ConnectionCallbac
     @Override
     public void onConnected(Bundle bundle) {
         String accountName = Plus.AccountApi.getAccountName(mGoogleApiClient);
-        Toast.makeText(context, "User " + accountName + " is connected!", Toast.LENGTH_LONG).show();
+        callbacks.onConnected(accountName);
     }
 
     @Override
