@@ -20,3 +20,19 @@ function signinCallback(authResult) {
 	    console.log('Sign-in state: ' + authResult['error']);
 	  }
 };
+
+
+
+
+
+function checkOnlineStatus() {
+	if ((window.Android && window.Android.isOnline()) || !window.Android) {
+		$(document.body).css('background', 'green');
+	} else {
+		$(document.body).css('background', 'red');
+	}
+}
+
+checkOnlineStatus();
+
+setInterval(checkOnlineStatus, 1000);

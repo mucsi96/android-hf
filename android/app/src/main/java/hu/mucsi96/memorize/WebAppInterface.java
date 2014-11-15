@@ -2,7 +2,11 @@ package hu.mucsi96.memorize;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.http.SslError;
+import android.util.Log;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
@@ -14,7 +18,7 @@ public class WebAppInterface {
     private Activity context;
     private WebView webView;
 
-    public WebAppInterface(Activity context) {
+    public WebAppInterface(final Activity context) {
         this.context = context;
         context.setContentView(R.layout.activity_main);
         webView = (WebView)context.findViewById(R.id.webview);
@@ -26,6 +30,14 @@ public class WebAppInterface {
             }
         });
         WebSettings webSettings = webView.getSettings();
+        webView.getSettings().setAppCachePath( context.getApplicationContext().getCacheDir().getAbsolutePath() );
+        webView.getSettings().setAllowFileAccess( true );
+        webView.getSettings().setAppCacheEnabled( true );
+        webView.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT ); // load online by default
+
+        if ( !isOnline() ) { // loading offline
+            webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
+        }
         webSettings.setJavaScriptEnabled(true);
         webView.addJavascriptInterface(this, "Android");
     }
@@ -36,7 +48,15 @@ public class WebAppInterface {
 
     @JavascriptInterface
     public boolean isOnline() {
-        return true;
+        try
+        {
+            ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo().isConnectedOrConnecting();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
     }
 
     @JavascriptInterface
