@@ -21,4 +21,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    // Google Play Services
+    compile 'com.google.android.gms:play-services:6.1.+'
 }
