@@ -3,36 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Memorize</title>
+<link rel="stylesheet" href="lib/css/bootstrap.css">
+<link rel="stylesheet" href="index.css"/>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="https://apis.google.com/js/client:platform.js"></script>
-<style type="text/css">
-	body {
-    /* This has to be same as the text-shadows below */
-    background: #def;
-	}
-	h1 {
-	    font-family: Helvetica, Arial, sans-serif;
-	    font-weight: bold;
-	    font-size: 6em;
-	    line-height: 1em;
-	}
-	.inset-text {
-	    /* Shadows are visible under slightly transparent text color */
-	    color: rgba(200,200,200, 0.8);
-	    text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
-	}
-	/* Don't show shadows when selecting text */
-	::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
-	::selection { background: #5af; color: #fff; text-shadow: none; }
-</style>
 </head>
 
 <body>
-<h1 class="inset-text">Memorize</h1>
-<div id="google-button">
-</div>
-
-<script src="src-bundle.js"></script>
+	<section class="sidebar">
+		<nav>
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand">Sidebar</li>
+				<li><a href="#">label</a></li>
+				<li><a href="#">label</a></li>
+				<li><a href="#">label</a></li>
+			</ul>
+		</nav>
+	</section>
+	<section id="drawer">
+		<header class="navbar navbar-inverse navbar-static-top">
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<span class="navbar-brand">Memorize</span>
+			</div>
+		</header>
+		<div id="main" class="container">
+			<h1>v1</h1>
+			js off
+		</div>
+	</section>
+	<script src="src-bundle.js"></script>
 </body>
 
 </html>

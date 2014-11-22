@@ -1,4 +1,18 @@
-window.gapi.signin.render('google-button', {
+$( document ).ready(function() {
+  var sidebarIn = false,
+	$sidebar = $('.sidebar'),
+	$navbarToggle = $('.navbar-toggle'),
+	$main = $('#main');
+
+	$navbarToggle.on('click', function() {
+		sidebarIn = !sidebarIn;
+		$sidebar.toggleClass('in', sidebarIn);
+	});
+});
+
+
+
+/*window.gapi.signin.render('google-button', {
 	scope: 'https://www.googleapis.com/auth/plus.login',
 	clientid: '452210508834-njv84nt2nrla2jlf07mdcaur28jh2sn1.apps.googleusercontent.com',
 	cookiepolicy: 'single_host_origin',
@@ -19,20 +33,5 @@ function signinCallback(authResult) {
 	    //   "immediate_failed" - Could not automatically log in the user
 	    console.log('Sign-in state: ' + authResult['error']);
 	  }
-};
+};*/
 
-
-
-
-
-function checkOnlineStatus() {
-	if ((window.Android && window.Android.isOnline()) || !window.Android) {
-		$(document.body).css('background', 'green');
-	} else {
-		$(document.body).css('background', 'red');
-	}
-}
-
-checkOnlineStatus();
-
-setInterval(checkOnlineStatus, 1000);

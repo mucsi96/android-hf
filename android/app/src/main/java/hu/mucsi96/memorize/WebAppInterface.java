@@ -1,25 +1,20 @@
 package hu.mucsi96.memorize;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.net.http.SslError;
 import android.util.Log;
-import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
-public class WebAppInterface {
-    private Activity context;
+public class WebAppInterface implements NetworkMonitorCallbacks {
     private WebView webView;
+    private String url;
 
-    public WebAppInterface(final Activity context) {
-        this.context = context;
+    public WebAppInterface(final Activity context, String url) {
+        this.url = url;
         context.setContentView(R.layout.activity_main);
         webView = (WebView)context.findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient() {
@@ -29,33 +24,35 @@ public class WebAppInterface {
                 handler.proceed();
             }
         });
-        WebSettings webSettings = webView.getSettings();
+        webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAppCachePath( context.getApplicationContext().getCacheDir().getAbsolutePath() );
         webView.getSettings().setAllowFileAccess( true );
         webView.getSettings().setAppCacheEnabled( true );
-        webView.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT ); // load online by default
-
-        if ( !isOnline() ) { // loading offline
-            webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
-        }
-        webSettings.setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(this, "Android");
     }
 
-    public void load(String url) {
+    public void connect() {
+        refresh();
+    }
+
+    public void disconnect() {
+
+    }
+
+    public void refresh() {
+        Log.v("mucsi96", "refresh to " + url);
         webView.loadUrl(url);
     }
 
-    @JavascriptInterface
-    public boolean isOnline() {
-        try
-        {
-            ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            return cm.getActiveNetworkInfo().isConnectedOrConnecting();
-        }
-        catch (Exception e)
-        {
-            return false;
+    @Override
+    public void networkStatusChange(boolean isOnline) {
+        if (isOnline) {
+            webView.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT );
+            refresh();
+        } else {
+            webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ONLY);
+            refresh();
         }
     }
 

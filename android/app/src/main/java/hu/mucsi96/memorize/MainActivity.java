@@ -7,28 +7,32 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements GooglePlusLoginCallbacks {
 
+    private NetworkMonitor networkMonitor;
     private WebAppInterface webAppInterface;
     private GooglePlusLoginService googlePlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         googlePlus = new GooglePlusLoginService(this, this);
-        webAppInterface = new WebAppInterface(this);
-        webAppInterface.load("http://192.168.1.104");
+        webAppInterface = new WebAppInterface(this, "http://192.168.1.104");
+        networkMonitor = new NetworkMonitor(this, webAppInterface);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         googlePlus.connect();
+        networkMonitor.connect();
+        webAppInterface.connect();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         googlePlus.disconnect();
+        networkMonitor.disconnect();
+        webAppInterface.disconnect();
     }
 
     @Override
