@@ -19,10 +19,19 @@ module.exports = function(grunt) {
                     dest: 'dist/libs-bundle.js'
                 }
             },
+            manifest: {
+                generate: {
+                    options: {
+                        basePath: 'dist/'
+                    },
+                    src: ['**/*.*'],
+                    dest: 'app.cache'
+                }
+            },
             watch: {
                 default: {
-                    files: src,
-                    tasks: ['concat']
+                    files: [src, ['dist/**/*.*']],
+                    tasks: ['concat', 'manifest']
                 }
             }
         }
@@ -30,6 +39,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-manifest');
 
     grunt.registerTask('default', ['watch']);
 };

@@ -4,20 +4,29 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
-public class GooglePlusLoginService implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+import java.io.IOException;
+
+public class GooglePlusLoginService implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GooglePlusLoginCallbacks ,AuthenticationInfoService {
 
     private static final int RC_SIGN_IN = 0;
     private Activity context;
     private GoogleApiClient mGoogleApiClient;
     private boolean mIntentInProgress;
-    private GooglePlusLoginCallbacks callbacks;
+    private AuthenticationInfo authenticationInfo;
+    private AuthenticationCallbacks callbacks;
 
-    public GooglePlusLoginService(Activity context, GooglePlusLoginCallbacks callbacks){
+    public GooglePlusLoginService(Activity context, AuthenticationCallbacks callbacks){
         this.context = context;
         this.callbacks = callbacks;
         mGoogleApiClient = new GoogleApiClient.Builder(context)
@@ -50,8 +59,21 @@ public class GooglePlusLoginService implements GoogleApiClient.ConnectionCallbac
 
     @Override
     public void onConnected(Bundle bundle) {
-        String accountName = Plus.AccountApi.getAccountName(mGoogleApiClient);
-        callbacks.onConnected(accountName);
+        if (authenticationInfo == null || authenticationInfo.getAccessToken() == null) {
+            String accountId = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient).getId();
+            String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
+            String userName = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient).getDisplayName();
+
+            authenticationInfo = new AuthenticationInfo();
+            authenticationInfo.setId(accountId);
+            authenticationInfo.setUserName(userName);
+            authenticationInfo.setEmail(email);
+
+            Log.v("hu.mucsi96.memorize", "AuthInfo: " + authenticationInfo.toString());
+            Log.v("hu.mucsi96.memorize", "Getting access token for" + email);
+
+            new GoogleTokenTask(context, this).execute(email);
+        }
     }
 
     @Override
@@ -74,5 +96,22 @@ public class GooglePlusLoginService implements GoogleApiClient.ConnectionCallbac
                 mGoogleApiClient.connect();
             }
         }
+    }
+
+    @Override
+    public AuthenticationInfo getAuthenticationInfo() {
+        Log.v("hu.mucsi96.memorize", "AuthenticationInfo requested. Current:" + authenticationInfo.toString());
+        if (authenticationInfo == null) {
+            Toast.makeText(context, "Google authentication problem!", Toast.LENGTH_LONG);
+        }
+
+        return authenticationInfo;
+    }
+
+    @Override
+    public void onTokenReady(String token) {
+        Log.v("hu.mucsi96.memorize", "Access token is ready: " + token);
+        this.authenticationInfo.setAccessToken(token);
+        callbacks.onAuthenticationInfoReady();
     }
 }

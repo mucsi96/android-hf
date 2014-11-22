@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html manifest="app.cache">
 <head>
 <meta charset="UTF-8">
 <title>Memorize</title>
+<link rel="stylesheet" href="lib/fonts/Lato-Bold.css">
+<link rel="stylesheet" href="lib/fonts/Lato-Regular.css">
 <link rel="stylesheet" href="lib/css/font-awesome.min.css">
 <link rel="stylesheet" href="lib/css/bootstrap.css">
 <link rel="stylesheet" href="index.css"/>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="https://apis.google.com/js/client:platform.js"></script>
+<script src="lib/js/jquery-1.11.1.min.js"></script>
 </head>
 
 <body>
@@ -30,8 +31,9 @@
 			</div>
 		</header>
 		<div id="main" class="container">
-			<h1>v1</h1>
-			js off
+			<h1>v6</h1>
+			<h2>Authentication info</h2>
+			<span id="status"></span>
 		</div>
 		<div id="overlay"></div>
 	</section>

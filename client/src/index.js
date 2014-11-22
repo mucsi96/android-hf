@@ -24,6 +24,27 @@ window.goOffline = function() {
 	$('#network-indicator').toggleClass('offline', true);
 }
 
+if(window.Android) {
+	console.log = function(text) {
+		var prev = $('#status').html();
+		$('#status').html(prev + '<br>' + text);
+	}
+}
+
+if (window.Android) {
+	console.log("Requesting authentication info...");
+	var authInfo = Android.getAuthenticationInfo();
+	if (authInfo) {
+		console.log(authInfo);
+		try{
+			authInfo = JSON.parse(authInfo);
+			console.log("Hello " + authInfo.userName);
+		} catch(e) {
+			console.log(e);
+		}
+	}
+}
+
 
 
 /*window.gapi.signin.render('google-button', {
