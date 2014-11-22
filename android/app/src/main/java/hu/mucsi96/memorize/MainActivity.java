@@ -24,7 +24,6 @@ public class MainActivity extends Activity implements GooglePlusLoginCallbacks {
         super.onStart();
         googlePlus.connect();
         networkMonitor.connect();
-        webAppInterface.connect();
     }
 
     @Override
@@ -32,7 +31,6 @@ public class MainActivity extends Activity implements GooglePlusLoginCallbacks {
         super.onStop();
         googlePlus.disconnect();
         networkMonitor.disconnect();
-        webAppInterface.disconnect();
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.util.Log;
 
 public class NetworkMonitor extends BroadcastReceiver {
 
@@ -20,7 +21,8 @@ public class NetworkMonitor extends BroadcastReceiver {
     }
 
     public void connect() {
-        context.registerReceiver(this, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        Log.v("hu.mucsi96.memorize", "network monitor connected");
+        context.registerReceiver(this, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         onReceive(null, null);
     }
 

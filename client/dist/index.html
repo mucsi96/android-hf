@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Memorize</title>
+<link rel="stylesheet" href="lib/css/font-awesome.min.css">
 <link rel="stylesheet" href="lib/css/bootstrap.css">
 <link rel="stylesheet" href="index.css"/>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -10,7 +11,7 @@
 </head>
 
 <body>
-	<section class="sidebar">
+	<section id="sidebar">
 		<nav>
 			<ul class="sidebar-nav">
 				<li class="sidebar-brand">Sidebar</li>
@@ -23,18 +24,16 @@
 	<section id="drawer">
 		<header class="navbar navbar-inverse navbar-static-top">
 			<div class="navbar-header">
-				<button class="navbar-toggle" type="button">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<span class="navbar-brand">Memorize</span>
+				<i class="fa fa-navicon pull-left" id="navbar-toggle"></i>
+				<span class="navbar-brand pull-left">Memorize</span>
+				<i class="fa fa-wifi pull-right" id="network-indicator"></i>
 			</div>
 		</header>
 		<div id="main" class="container">
 			<h1>v1</h1>
 			js off
 		</div>
+		<div id="overlay"></div>
 	</section>
 	<script src="src-bundle.js"></script>
 </body>

@@ -2,20 +2,45 @@
 
 body {
 	font-family: 'Lato', sans-serif;
+	background-color: #f8f7f6;
 }
 
-.navbar-toggle {
-	border: none;
-  	display: block;
-  	float: left;
+.navbar-static-top {
+	z-index: auto;
 }
 
 .navbar-inverse .navbar-brand {
-	color: white;
+	color: #fff;
+	padding-left: 0;
 }
 
-.sidebar {
-	color: white;
+.navbar-header {
+	color: #fff;
+	width: 100%;
+}
+
+#navbar-toggle {
+	font-size: 26px;
+	cursor: pointer;
+	position: relative;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	padding-right: 15px;
+	margin: 0;
+}
+
+#network-indicator { 
+	margin: 15px;
+	font-size: 20px;
+	color: rgb(158, 255, 158);
+}
+
+#network-indicator.offline {
+	color: rgb(255, 84, 84);
+} 
+
+#sidebar {
+	color: #fff;
 	background: #202021;
 	position: fixed;
 	width: 250px;
@@ -30,7 +55,7 @@ body {
 	transition: all 0.5s ease;
 }
 
-.sidebar.in {
+#sidebar.in {
 	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 }
@@ -68,28 +93,43 @@ body {
 	transition: background 0.3s, box-shadow 0.3s;
 }
 
-.sidebar.in + #drawer {
+#sidebar.in + #drawer {
 	-webkit-transform: translate3d(250px, 0, 0);
 	transform: translate3d(250px, 0, 0);
 }
 
+#sidebar.in + #drawer #overlay {
+	opacity: 1;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
 #drawer {
-	position: relative;
-	left: 0;
-	z-index: 99;
+	position: fixed;
+	width: 100%;
 	height: 100%;
-	background-color: #f8f7f6;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 }
 
-/*@media (min-width: 768px) {
-  .navbar-toggle {
-  	display: inline;
-  }
-}*/
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  -webkit-transition: opacity .15s ease-in-out;
+  -moz-transition: opacity .15s ease-in-out;
+  -ms-transition: opacity .15s ease-in-out;
+  -o-transition: opacity .15s ease-in-out;
+  transition: opacity .15s ease-in-out;
+  opacity: 0;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
 
 .inset-text {
     /* Shadows are visible under slightly transparent text color */

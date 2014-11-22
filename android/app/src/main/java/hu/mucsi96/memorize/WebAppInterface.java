@@ -30,29 +30,18 @@ public class WebAppInterface implements NetworkMonitorCallbacks {
         webView.getSettings().setAppCacheEnabled( true );
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(this, "Android");
-    }
-
-    public void connect() {
-        refresh();
-    }
-
-    public void disconnect() {
-
-    }
-
-    public void refresh() {
-        Log.v("mucsi96", "refresh to " + url);
         webView.loadUrl(url);
     }
 
     @Override
     public void networkStatusChange(boolean isOnline) {
+        Log.v("hu.mucsi96.memorize", "networkStatusChange to: " + isOnline );
         if (isOnline) {
             webView.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT );
-            refresh();
+            callJavaScript("goOnline");
         } else {
             webView.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ONLY);
-            refresh();
+            callJavaScript("goOffline");
         }
     }
 
@@ -75,6 +64,7 @@ public class WebAppInterface implements NetworkMonitorCallbacks {
             stringBuilder.append(",");
         }
         stringBuilder.append(")}catch(error){Android.onError(error.message);}");
+        Log.v("hu.mucsi96.memorize", "Calling javascript: " + stringBuilder.toString());
         webView.loadUrl(stringBuilder.toString());
     }
 }

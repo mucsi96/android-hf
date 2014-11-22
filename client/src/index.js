@@ -1,14 +1,28 @@
 $( document ).ready(function() {
   var sidebarIn = false,
-	$sidebar = $('.sidebar'),
-	$navbarToggle = $('.navbar-toggle'),
+	$sidebar = $('#sidebar'),
+	$navbarToggle = $('#navbar-toggle'),
+	$overlay = $('#overlay'),
 	$main = $('#main');
 
-	$navbarToggle.on('click', function() {
+	function toggleSideBar(event) {
 		sidebarIn = !sidebarIn;
 		$sidebar.toggleClass('in', sidebarIn);
-	});
+		event.stopImmediatePropagation();
+	}
+
+	$overlay.on('click', toggleSideBar);
+
+	$navbarToggle.on('click', toggleSideBar);
 });
+
+window.goOnline = function() {
+	$('#network-indicator').toggleClass('offline', false);
+}
+
+window.goOffline = function() {
+	$('#network-indicator').toggleClass('offline', true);
+}
 
 
 
