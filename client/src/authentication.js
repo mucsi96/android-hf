@@ -1,25 +1,35 @@
 define('Authentication', function (require) {
-	if (window.AuthenticationProvider) {
-		console.log('AuthenticationProvider found.');
+	var storage = require('Storage'),
+		page = require('Page');
+
+	if (!storage.get('authenticationInfo')) {
+		if (window.AuthenticationProvider) {
+			console.log('AuthenticationProvider found.');
+		} else {
+			console.log('AuthenticationProvider not found. Using client side authentication provide.');
+			AuthenticationProvider = require('GoogleAuthenticationProvider');
+		}
+
+		console.log('Requesting authenticationInfo...');
+		AuthenticationProvider.getAuthenticationInfo();		
 	} else {
-		console.log('AuthenticationProvider not found. Using client side authentication provide.');
-		AuthenticationProvider = require('GoogleAuthenticationProvider');
+		page.userName.text(storage.get('authenticationInfo').userName);
 	}
 
-	console.log('Requesting authenticationInfo...');
-	AuthenticationProvider.getAuthenticationInfo();
 
 	window.onAuthenticationInfoReady = function (json) {
+		var authenticationInfo;
 		console.log('AuthenticationInfo ready: ' + json);
-		window.authenticationInfo = JSON.parse(json);
+		authenticationInfo = JSON.parse(json);
+		storage.put('authenticationInfo', authenticationInfo);
 		console.log('User name is: ' + authenticationInfo.userName);
 		console.log('Requesting access token');
-		$('#user-name').text(authenticationInfo.userName);
+		page.userName.text(authenticationInfo.userName);
 		AuthenticationProvider.getAccessToken(json);
 	}
 
 	window.onAccessTokenReady = function (token) {
 		console.log('Access token ready: ' + token);
-		window.accessToken = token;
+		storage.put('accessToken', token);
 	}
 });

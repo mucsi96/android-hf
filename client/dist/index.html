@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="app.cache">
+<html manifest="app.cache" data-ng-app="app">
 <head>
 <meta charset="UTF-8">
 <title>Memorize</title>
@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="index.css"/>
 <script src="lib/js/min-require.js"></script>
 <script src="lib/js/jquery-1.11.1.min.js"></script>
+<script src="lib/js/angular.min.js"></script>
 </head>
 
 <body>
@@ -36,6 +37,12 @@
 		</div>
 		<div id="overlay"></div>
 	</section>
+
+	<template id="mytemplate">
+	  <img src="" alt="great image">
+	  <div class="comment">dfdsgsdgsgsfgsgsd asdfdsf </div>
+	</template>
+
 	<script src="src-bundle.js"></script>
 </body>
 

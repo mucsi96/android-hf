@@ -4,6 +4,7 @@ define('Page', function (require, module) {
 		navbarToggle: $('#navbar-toggle'),
 		overlay: $('#overlay'),
 		main: $('#main'),
-		networkIndicator: $('#network-indicator')
+		networkIndicator: $('#network-indicator'),
+		userName: $('#user-name')
 	}
 });
