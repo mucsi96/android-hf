@@ -1,8 +1,13 @@
-define('Authentication', function () {
+define('Authentication', function (require) {
 	if (window.AuthenticationProvider) {
-		console.log('AuthenticationProvider found. Requesting authenticationInfo...');
-		AuthenticationProvider.getAuthenticationInfo();
+		console.log('AuthenticationProvider found.');
+	} else {
+		console.log('AuthenticationProvider not found. Using client side authentication provide.');
+		AuthenticationProvider = require('GoogleAuthenticationProvider');
 	}
+
+	console.log('Requesting authenticationInfo...');
+	AuthenticationProvider.getAuthenticationInfo();
 
 	window.onAuthenticationInfoReady = function (json) {
 		console.log('AuthenticationInfo ready: ' + json);
