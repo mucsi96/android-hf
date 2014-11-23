@@ -1,22 +1,13 @@
 module.exports = function(grunt) {
 
-    var src = ['src/**/*.js'];
-    var libs = ['lib/**/*.js'];
+    var src = ['src/**/*.js', '!src/index.js', 'src/index.js'];
 
     grunt.initConfig(
         {
             concat: {
-                options: {
-                        banner: '(function(){\n"use strict";\n\n',
-                        footer: '\n\n}());'
-                },
                 sources: {
                     src: src,
                     dest: 'dist/src-bundle.js'
-                },
-                libs: {
-                    src: libs,
-                    dest: 'dist/libs-bundle.js'
                 }
             },
             manifest: {

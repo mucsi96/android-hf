@@ -1,60 +1,7 @@
-$( document ).ready(function() {
-  var sidebarIn = false,
-	$sidebar = $('#sidebar'),
-	$navbarToggle = $('#navbar-toggle'),
-	$overlay = $('#overlay'),
-	$main = $('#main');
-
-	function toggleSideBar(event) {
-		sidebarIn = !sidebarIn;
-		$sidebar.toggleClass('in', sidebarIn);
-		event.stopImmediatePropagation();
-	}
-
-	$overlay.on('click', toggleSideBar);
-
-	$navbarToggle.on('click', toggleSideBar);
-
-	if (window.Android) {
-		Android.log('Hello for webApp2');
-		console.log = function(message) {
-			Android.log(message);
-		};
-		console.error = function(error) {
-			Android.error(error);
-		};
-		console.log('Consoles redirected.');
-		console.log('Getting network status.');
-		Android.getNetworkStatus();
-	}
-
-	if (window.AuthenticationProvider) {
-		console.log('AuthenticationProvider found. Requesting authenticationInfo...');
-		AuthenticationProvider.getAuthenticationInfo();
-	}
-
-	window.onAuthenticationInfoReady = function (json) {
-		console.log('AuthenticationInfo ready: ' + json);
-		window.authenticationInfo = JSON.parse(json);
-		console.log('User name is: ' + authenticationInfo.userName);
-		console.log('Requesting access token');
-		$('#user-name').text(authenticationInfo.userName);
-		AuthenticationProvider.getAccessToken(json);
-	}
-
-	window.onAccessTokenReady = function (token) {
-		console.log('Access token ready: ' + token);
-		window.accessToken = token;
-	}	
-
-	window.goOnline = function() {
-		$('#network-indicator').toggleClass('offline', false);
-	}
-
-	window.goOffline = function() {
-		$('#network-indicator').toggleClass('offline', true);
-	}		
-});
+require('AndroidSupport');
+require('Sidebar');
+require('NetworkIndicator');
+require('Authentication');
 
 
 
