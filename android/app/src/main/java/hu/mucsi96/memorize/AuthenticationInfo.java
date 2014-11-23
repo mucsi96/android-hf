@@ -7,7 +7,6 @@ public class AuthenticationInfo {
     private String id;
     private String userName;
     private String email;
-    private String accessToken;
 
     public String getId() {
         return id;
@@ -19,10 +18,6 @@ public class AuthenticationInfo {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
     }
 
     public void setId(String id) {
@@ -37,22 +32,30 @@ public class AuthenticationInfo {
         this.email = email;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    @Override
-    public String toString() {
+    public String toJSON() {
         JSONObject o = new JSONObject();
         try {
             o.put("type", "Google");
             o.put("id", id);
             o.put("userName", userName);
             o.put("email", email);
-            o.put("accessToken", accessToken);
         } catch(JSONException e) {
-            
+            e.printStackTrace();
         }
         return o.toString();
+    }
+
+    public static AuthenticationInfo fromJSON(String json) {
+        AuthenticationInfo authenticationInfo = null;
+        try {
+            JSONObject o = new JSONObject(json);
+            authenticationInfo = new AuthenticationInfo();
+            authenticationInfo.setId(o.getString("id"));
+            authenticationInfo.setUserName(o.getString("userName"));
+            authenticationInfo.setEmail(o.getString("email"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return authenticationInfo;
     }
 }

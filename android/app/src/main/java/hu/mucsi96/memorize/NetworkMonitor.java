@@ -14,14 +14,17 @@ public class NetworkMonitor extends BroadcastReceiver {
     private NetworkMonitorCallbacks callbacks;
     private Boolean online;
 
-    public NetworkMonitor(Activity context, NetworkMonitorCallbacks callbacks) {
+    public NetworkMonitor(Activity context) {
         this.context = context;
-        this.callbacks = callbacks;
         online = null;
     }
 
+    public void setCallbacks(NetworkMonitorCallbacks callbacks) {
+        this.callbacks = callbacks;
+    }
+
     public void connect() {
-        Log.v("hu.mucsi96.memorize", "network monitor connected");
+        Log.v(Globals.TAG, "Network monitor connected");
         context.registerReceiver(this, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         onReceive(null, null);
     }

@@ -35,7 +35,11 @@ body {
 
 #network-indicator.offline {
 	color: rgb(255, 84, 84);
-} 
+}
+
+#user-name {
+	margin: 15px 0;
+}
 
 #sidebar {
 	color: #fff;

@@ -14,9 +14,9 @@ import java.io.IOException;
 public class GoogleTokenTask  extends AsyncTask<String, Void, String> {
 
     private Activity context;
-    private GooglePlusLoginCallbacks callbacks;
+    private AuthenticationCallbacks callbacks;
 
-    public GoogleTokenTask(Activity context, GooglePlusLoginCallbacks callbacks) {
+    public GoogleTokenTask(Activity context, AuthenticationCallbacks callbacks) {
         this.context = context;
         this.callbacks = callbacks;
     }
@@ -29,11 +29,11 @@ public class GoogleTokenTask  extends AsyncTask<String, Void, String> {
         try {
             token = GoogleAuthUtil.getToken(context, accountName, scopes);
         } catch (IOException e) {
-            Log.e("hu.mucsi96.memorize", e.getMessage());
+            Log.e(Globals.TAG, e.getMessage());
         } catch (UserRecoverableAuthException e) {
             Toast.makeText(context, "Google authentication problem!", Toast.LENGTH_LONG);
         } catch (GoogleAuthException e) {
-            Log.e("hu.mucsi96.memorize", e.getMessage());
+            Log.e(Globals.TAG, e.getMessage());
         }
         return token;
     }
@@ -41,6 +41,6 @@ public class GoogleTokenTask  extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String token) {
         super.onPostExecute(token);
-        callbacks.onTokenReady(token);
+        callbacks.onAccessTokenReady(token);
     }
 }

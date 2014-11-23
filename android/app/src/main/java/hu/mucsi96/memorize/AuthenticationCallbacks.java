@@ -1,5 +1,6 @@
 package hu.mucsi96.memorize;
 
 public interface AuthenticationCallbacks {
-    void onAuthenticationInfoReady();
+    void onAuthenticationInfoReady(AuthenticationInfo authenticationInfo);
+    void onAccessTokenReady(String token);
 }
