@@ -1,8 +1,12 @@
-require('AndroidSupport');
-require('Sidebar');
-require('NetworkIndicator');
-require('Authentication');
-require('Storage').put('data', {
+(function () {
+    'use strict';
+
+    angular
+        .module('app', [
+            'app.core'
+        ]);
+
+    var data = {
 	wordsets: [
 		{
 			name: 'Wordset1',
@@ -26,4 +30,6 @@ require('Storage').put('data', {
 			]
 		}
 	]
-});
+};   
+
+})();

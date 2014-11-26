@@ -1,49 +1,23 @@
 <!DOCTYPE html>
-<html manifest="app.cache" data-ng-app="app">
-<head>
-<meta charset="UTF-8">
-<title>Memorize</title>
-<link rel="stylesheet" href="lib/fonts/Lato-Bold.css">
-<link rel="stylesheet" href="lib/fonts/Lato-Regular.css">
-<link rel="stylesheet" href="lib/css/font-awesome.min.css">
-<link rel="stylesheet" href="lib/css/bootstrap.css">
-<link rel="stylesheet" href="index.css"/>
-<script src="lib/js/min-require.js"></script>
-<script src="lib/js/jquery-1.11.1.min.js"></script>
-<script src="lib/js/angular.min.js"></script>
-</head>
-
-<body>
-	<section id="sidebar">
-		<nav>
-			<ul class="sidebar-nav">
-				<li class="sidebar-brand">Sidebar</li>
-				<li><a href="#">label</a></li>
-				<li><a href="#">label</a></li>
-				<li><a href="#">label</a></li>
-			</ul>
-		</nav>
-	</section>
-	<section id="drawer">
-		<header class="navbar navbar-inverse navbar-static-top">
-			<div class="navbar-header">
-				<i class="fa fa-navicon pull-left" id="navbar-toggle"></i>
-				<span class="navbar-brand pull-left">Memorize</span>
-				<i class="fa fa-wifi pull-right" id="network-indicator"></i>
-				<span class="pull-right" id="user-name"></span>
-			</div>
-		</header>
-		<div id="main" class="container">
-		</div>
-		<div id="overlay"></div>
-	</section>
-
-	<template id="mytemplate">
-	  <img src="" alt="great image">
-	  <div class="comment">dfdsgsdgsgsfgsgsd asdfdsf </div>
-	</template>
-
-	<script src="src-bundle.js"></script>
-</body>
-
+<html ng-app="app">
+	<head>
+		<meta charset="UTF-8">
+		<title>Memorize</title>
+		<link rel="stylesheet" href="lib/fonts/Lato-Bold.css">
+		<link rel="stylesheet" href="lib/fonts/Lato-Regular.css">
+		<link rel="stylesheet" href="lib/css/font-awesome.min.css">
+		<link rel="stylesheet" href="lib/css/bootstrap.css">
+		<link rel="stylesheet" href="index.css"/>
+		<script src="lib/js/min-require.js"></script>
+		<script src="lib/js/jquery-1.11.1.min.js"></script>
+		<script src="lib/js/angular.js"></script>
+		<script src="lib/js/angular-translate.min.js"></script>
+		<script src="lib/js/angular-translate-storage-local.min.js"></script>
+		<script src="lib/js/angular-ui-router.min.js"></script>
+		<script src="app-bundle.js"></script>
+	</head>
+	<body>
+		<section id="sidebar" ng-include="'templates/sidebar.html'" ng-controller="SidebarController as vm" ng-class="{in: vm.sidebarIn}"></section>
+		<section id="shell" ng-include="'templates/shell.html'"></section>
+	</body>
 </html>

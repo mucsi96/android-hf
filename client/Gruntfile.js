@@ -1,13 +1,13 @@
 module.exports = function(grunt) {
 
-    var src = ['src/**/*.js', '!src/index.js', 'src/index.js'];
+    var src = ['src/**/*.module.js', 'src/**/*.js', '!src/index.js', 'src/index.js'];
 
     grunt.initConfig(
         {
             concat: {
                 sources: {
                     src: src,
-                    dest: 'dist/src-bundle.js'
+                    dest: 'dist/app-bundle.js'
                 }
             },
             manifest: {
