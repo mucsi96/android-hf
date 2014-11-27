@@ -37,6 +37,7 @@
 		vm.toggleSidebar = function () {
 			$rootScope.$emit('toggleSidebar');
 		}
+
 	}
 
 })();

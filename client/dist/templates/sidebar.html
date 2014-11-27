@@ -1,9 +1,16 @@
 <nav>
 	<ul class="sidebar-nav">
-		<li class="sidebar-brand">{{'MENU' | translate}}</li>
-		<li><a href="#"><i class="fa fa-home"></i> {{'HOME' | translate}}</a></li>
+		<li class="sidebar-brand" translate>MENU</li>
+<!-- 		<li><a href="#"><i class="fa fa-home"></i> {{'HOME' | translate}}</a></li>
 		<li><a href="#learn"><i class="fa fa-book"></i> {{'LEARN' | translate}}</a></li>
 		<li><a href="#admin"><i class="fa fa-briefcase"></i> {{'ADMIN' | translate}}</a></li>
 		<li><a href="#settings"><i class="fa fa-gear"></i> {{'SETTINGS' | translate}}</a></li>
+ -->	
+ 		<li ng-class="{active: vm.isCurrent(r)}" ng-repeat="r in vm.navRoutes">
+        	<a ui-sref="{{r.name}}" ng-click="vm.toggleSidebar()">
+        		<i ng-class="r.iconClasses" translate></i>
+        		{{r.translatedTitle}}
+        	</a>
+        </li>
 	</ul>
 </nav>

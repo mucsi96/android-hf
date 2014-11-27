@@ -3,8 +3,9 @@
 
 	angular
 		.module('app.core', [
+			'ngCookies',
 			'pascalprecht.translate',
-			'app.layout'
+			'ui.router'
 		]);   
 
 })();

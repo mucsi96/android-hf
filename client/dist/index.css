@@ -3,6 +3,18 @@ body {
 	background-color: #f8f7f6;
 }
 
+.form {
+	padding: 0 15px;
+}
+
+.dropdown {
+	display: inline-block;
+}
+
+.control-label {
+	margin-right: 10px;
+}
+
 .navbar-static-top {
 	z-index: auto;
 }
