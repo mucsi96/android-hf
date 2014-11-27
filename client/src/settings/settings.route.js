@@ -3,9 +3,9 @@
 
 	angular
 		.module('app.settings')
-		.run(appRun);
+		.run(initRoute);
 
-	function appRun(routerHelper) {
+	function initRoute(routerHelper) {
 		var states = [
             {
                 state: 'settings',

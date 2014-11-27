@@ -19,7 +19,13 @@
 			LANGUAGE: 'Language',
 			ENGLISH: 'English',
         	HUNGARIAN: 'Hungarian',
-			BACK: 'Back'
+			BACK: 'Back',
+			WORDSETS: 'Word sets',
+			NO_WORDSETS: 'You don\'t have any word sets yet. Create one by clicking on "Add" button.',
+	        ADD: 'Add',
+	        CONFIRM_DELETE: 'Do you really want to delete this item?',
+	        DELETE: 'Delete',
+	        CANCEL: 'Cancel'
 		});
 
 		$translateProvider.translations('hu', {
@@ -31,7 +37,13 @@
 			LANGUAGE: 'Nyelv',
 			ENGLISH: 'Angol',
         	HUNGARIAN: 'Magyar',
-			BACK: 'Vissza'
+			BACK: 'Vissza',
+			WORDSETS: 'Szókészletek',
+	        NO_WORDSETS: 'Önnek még nincs szókészlete. Létrehozáshoz, kattintson a "Hozzáadás" gombra.',
+	        ADD: 'Hozzáadás',
+	        CONFIRM_DELETE: 'Valóban törölni akarja ezt a elemet?',
+	        DELETE: 'Törlés',
+	        CANCEL: 'Mégsem'
 		});
 
 		$translateProvider.preferredLanguage('en');
