@@ -24,7 +24,7 @@
 
         function getNavRoutes() {
             vm.navRoutes = states.map(function(r) {
-                return $.extend({}, r, {translatedTitle: $translate.instant(r.title)});
+                return angular.extend({}, r, {translatedTitle: $translate.instant(r.title)});
             }).filter(function(r) {
                 return r.settings && r.settings.nav;
             }).sort(function(r1, r2) {

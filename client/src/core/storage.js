@@ -18,14 +18,15 @@
 			return {
 				get: function (key) {
 					var stringValue = localStorage.getItem(key);
-					return JSON.parse(stringValue);
+					return angular.fromJson(stringValue);
 				},
 				put: function (key, value) {
-					var stringValue = JSON.stringify(value);
+					var stringValue = angular.toJson(value);
 					localStorage.setItem(key, stringValue);
 				}
 			};
 		} else {
+			console.log("Local storage not supported!");
 			return {
 				get: function () {},
 				put: function () {}

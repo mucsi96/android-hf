@@ -37,6 +37,10 @@
                     vm.editor = null;
                     vm.edit = false;
                 };
+
+                vm.remove = function () {
+                    $scope.onRemove();
+                }
             },
             controllerAs: 'vm'
         };

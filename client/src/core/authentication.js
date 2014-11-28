@@ -52,7 +52,7 @@
 			emitter.emit('accessTokenReady', token);
 		}
 
-		return $.extend({
+		return angular.extend({
 			getAuthenticationInfo: getAuthenticationInfo,
 			getAccessToken: getAccessToken
 		}, emitter.getListener());

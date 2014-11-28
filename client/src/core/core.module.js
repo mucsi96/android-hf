@@ -5,7 +5,9 @@
 		.module('app.core', [
 			'ngCookies',
 			'pascalprecht.translate',
-			'ui.router'
+			'ui.bootstrap',
+			'ui.router',
+			'angularUUID2'
 		]);   
 
 })();
