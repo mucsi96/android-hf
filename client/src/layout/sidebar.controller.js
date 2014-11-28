@@ -5,9 +5,9 @@
 		.module('app.layout')
 		.controller('SidebarController', SidebarController);
 
-	function SidebarController ($rootScope, $state, routerHelper, $translate) {
+	function SidebarController ($rootScope, $state, $translate) {
 		var vm = this;
-		var states = routerHelper.getStates();
+		var states = $state.get();
         vm.isCurrent = isCurrent;
 
 		vm.sidebarIn = false;
