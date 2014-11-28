@@ -7,7 +7,8 @@
             'app.common',
             'app.layout',
             'app.dashboard',
-            'app.settings'
+            'app.settings',
+            'app.wordset'
         ]);  
 
 })();

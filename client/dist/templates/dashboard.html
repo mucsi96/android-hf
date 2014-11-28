@@ -1,17 +1,17 @@
 <section>
     <div class="panel panel-default" data-ng-show="vm.wordsets">
-        <div class="panel-heading" translate>WORDSETS</div>
+        <div class="panel-heading fb fb-ai-c fb-jc-sb">
+            <h3 translate>WORDSETS</h3>
+            <button class="btn btn-success" data-ng-click="vm.create()" translate>
+                ADD
+            </button>
+        </div>
         <div class="list-group">
-            <a class="list-group-item clearfix editable-label" data-ng-repeat="wordset in vm.wordsets" data-ng-click="" >
-                <editable-label ng-model="wordset" editable="name" on-update="vm.update(wordset)" on-remove="vm.remove(wordset)">
-                    <span class="badge pull-right">{{wordset.words.length}}</span>
-                </editable-label>
+            <a class="list-group-item fb fb-ai-c fb-jc-sb" data-ng-repeat="wordset in vm.wordsets" ui-sref="wordset({wordsetId:wordset.id})">
+                <span ng-bind="wordset.name"></span>
+                <span class="badge" ng-bind="wordset.words.length"></span>
             </a>
         </div>
     </div>
     <span data-ng-hide="vm.wordsets" translate>NO_WORDSETS</span>
-    <button class="btn btn-success pull-right" data-ng-click="vm.create()">
-        <span class="glyphicon glyphicon-plus"></span>
-        <span translate>ADD</span>
-    </button>
 </section>

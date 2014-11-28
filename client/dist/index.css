@@ -167,3 +167,39 @@ body {
 .editable-label .input-group {
     width: 75%;
 }
+
+.panel-heading h3 {
+	margin: 0;
+}
+
+.fb {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.fb.fb-ai-c {
+	-webkit-flex-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.fb.fb-jc-fs {
+	justify-content: flex-start;
+}
+
+.fb.fb-jc-fe {
+	justify-content: flex-end;
+}
+
+.fb.fb-jc-sb {
+	justify-content: space-between
+}
+
+a.list-group-item {
+	cursor: pointer;
+}
+

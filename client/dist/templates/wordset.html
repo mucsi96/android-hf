@@ -1,0 +1,20 @@
+<section>
+    <div class="panel panel-default" data-ng-show="vm.words">
+        <div class="panel-heading fb fb-ai-c fb-jc-sb">
+            <h3 translate>WORDSETS</h3>
+            <button class="btn btn-success" data-ng-click="vm.create()" translate>
+                ADD
+            </button>
+            <a ui-sref="dashboard" class="btn btn-default" translate>
+                BACK
+            </a>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item fb fb-ai-c fb-jc-sb" data-ng-repeat="word in vm.words">
+                <span ng-bind="word.en"></span>
+                <span ng-bind="word.hu"></span>
+            </a>
+        </div>
+    </div>
+    <span data-ng-hide="vm.words" translate>NO_WORDS</span>
+</section>
