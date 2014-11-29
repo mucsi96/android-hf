@@ -187,6 +187,10 @@ body {
 	align-items: center;
 }
 
+.fb.fb-ai-s {
+	align-items: stretch;
+}
+
 .fb.fb-jc-fs {
 	justify-content: flex-start;
 }
@@ -201,5 +205,9 @@ body {
 
 a.list-group-item {
 	cursor: pointer;
+}
+
+.fb.modal-footer:before, .fb.modal-footer:after {
+	content: none;
 }
 

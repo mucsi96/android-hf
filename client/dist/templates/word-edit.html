@@ -1,0 +1,19 @@
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="en" translate>ENGLISH</label>
+            <input type="text" class="form-control" id="en" ng-model="vm.en">
+        </div>
+        <div class="form-group">
+            <label for="hu" translate>HUNGARIAN</label>
+            <input type="text" class="form-control" id="hu" ng-model="vm.hu">
+        </div>
+    </form>
+</div>
+<div class="modal-footer fb" ng-class="{'fb-jc-sb': vm.id, 'fb-jc-fe': !vm.id}">
+	<button class="btn btn-danger fa fa-trash" ng-show="vm.id" ng-click="vm.remove()"></button>
+    <span class="btn-group">
+    	<button type="button" class="btn btn-success fa fa-check" ng-click="vm.create()"></button>
+    	<button type="button" class="btn btn-default fa fa-times" data-dismiss="modal" ng-click="vm.cancel()"></button>
+    </span>
+</div>

@@ -6,8 +6,8 @@
             'app.core',
             'app.common',
             'app.layout',
-            'app.dashboard',
             'app.settings',
+            'app.wordsets',
             'app.wordset'
         ]);  
 

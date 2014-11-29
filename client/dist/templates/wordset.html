@@ -1,20 +1,29 @@
 <section>
-    <div class="panel panel-default" data-ng-show="vm.words">
+    <div class="panel panel-default">
         <div class="panel-heading fb fb-ai-c fb-jc-sb">
-            <h3 translate>WORDSETS</h3>
-            <button class="btn btn-success" data-ng-click="vm.create()" translate>
-                ADD
-            </button>
-            <a ui-sref="dashboard" class="btn btn-default" translate>
-                BACK
-            </a>
+            <h3 ng-bind="vm.title" ng-hide="vm.editing"></h3>
+            <span class="input-group" ng-show="vm.editing">
+                <input type="text" autofocus class="form-control" ng-model="vm.editor" on-enter-press="vm.acceptEdit()" on-esc-press="vm.cancelEdit()">
+                <span class="input-group-btn">
+                        <button class="btn btn-danger" type="button" ng-click="vm.cancelEdit()"><i class="fa fa-times"></i></button>
+                        <button class="btn btn-success" type="button" ng-click="vm.acceptEdit()"><i class="fa fa-check"></i></button>
+                </span>
+            </span>
+            <span class="btn-group" ng-hide="vm.editing">
+                <button class="btn btn-danger fa fa-trash" data-ng-click="vm.remove()"></button>
+                <button class="btn btn-primary fa fa-pencil" data-ng-click="vm.showEditor()"></button>
+                <button class="btn btn-success fa fa-plus" data-ng-click="vm.create()"></button>
+                <a ui-sref="wordsets" class="btn btn-default fa fa-arrow-left"></a>
+            </span>
         </div>
         <div class="list-group">
-            <a class="list-group-item fb fb-ai-c fb-jc-sb" data-ng-repeat="word in vm.words">
+            <a class="list-group-item fb fb-ai-c fb-jc-sb" data-ng-repeat="word in vm.words" ng-click="vm.editWord(word)">
                 <span ng-bind="word.en"></span>
                 <span ng-bind="word.hu"></span>
             </a>
+            <span class="list-group-item" data-ng-hide="vm.words" translate>
+                NO_WORDS
+            </span>
         </div>
     </div>
-    <span data-ng-hide="vm.words" translate>NO_WORDS</span>
 </section>

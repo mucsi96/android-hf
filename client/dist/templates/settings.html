@@ -16,7 +16,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li ng-repeat="language in vm.selectableLanguages">
-                            <a href="#" ng-click="vm.changeLanguage(language.key)">
+                            <a ng-click="vm.changeLanguage(language.key)">
                                 {{language.name}}
                             </a>
                         </li>
