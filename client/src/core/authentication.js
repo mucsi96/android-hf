@@ -3,14 +3,20 @@
 
 	angular
 		.module('app.core')
-		.factory('AuthenticationProvider', AuthenticationProvider);
+		.factory('AuthenticationProvider', ExtendedAuthenticationProvider);
 
-	function AuthenticationProvider(Events, Storage, GoogleAuthenticationProvider) {
+	function ExtendedAuthenticationProvider(Events, Storage, GoogleAuthenticationProvider) {
 		var emitter = Events.getEmitter(),
 			AuthenticationProvider = window.AuthenticationProvider;
 
 		if (!AuthenticationProvider) {
 			AuthenticationProvider = GoogleAuthenticationProvider;
+			AuthenticationProvider.on('authenticationInfo', function (authenticationInfo) {
+				emitter.emit('authenticationInfoReady', authenticationInfo);
+			});
+			AuthenticationProvider.on('accessTokenReady', function (token) {
+				emitter.emit('accessTokenReady', token);
+			});
 			console.log('AuthenticationProvider not found. Using client side authentication provider.');
 		} else {
 			console.log('AuthenticationProvider found.');
@@ -22,18 +28,12 @@
 			if (authenticationInfo) {
 				emitter.emit('authenticationInfoReady', authenticationInfo);
 			} else {
-				AuthenticationProvider.on('authenticationInfo', function (authenticationInfo) {
-					emitter.emit('authenticationInfoReady', authenticationInfo);
-				});
 				console.log('Requesting authenticationInfo...');
 				AuthenticationProvider.getAuthenticationInfo();
 			}
 		}
 
 		function getAccessToken () {
-			AuthenticationProvider.on('accessTokenReady', function (token) {
-				emitter.emit('accessTokenReady', token);
-			});
 			AuthenticationProvider.getAccessToken();
 		}
 

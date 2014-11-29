@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -36,6 +38,14 @@ public class WebAppInterface implements NetworkMonitorCallbacks, AuthenticationC
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                     super.onReceivedError(view, errorCode, description, failingUrl);
                     Log.v(Globals.TAG, "Error on loading URL: " + failingUrl);
+                }
+            });
+            webView.setWebChromeClient(new WebChromeClient() {
+                public boolean onConsoleMessage(ConsoleMessage cm) {
+                    Log.v(Globals.TAG, cm.message() + " -- From line "
+                            + cm.lineNumber() + " of "
+                            + cm.sourceId() );
+                    return true;
                 }
             });
             webView.getSettings().setDomStorageEnabled(true);

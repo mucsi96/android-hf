@@ -10,9 +10,9 @@
         </div>
     </form>
 </div>
-<div class="modal-footer fb" ng-class="{'fb-jc-sb': vm.id, 'fb-jc-fe': !vm.id}">
-	<button class="btn btn-danger fa fa-trash" ng-show="vm.id" ng-click="vm.remove()"></button>
-    <span class="btn-group">
+<div class="modal-footer">
+	<button class="btn btn-danger fa fa-trash pull-left" ng-show="vm.id" ng-click="vm.remove()"></button>
+    <span class="btn-group pull-right">
     	<button type="button" class="btn btn-success fa fa-check" ng-click="vm.create()"></button>
     	<button type="button" class="btn btn-default fa fa-times" data-dismiss="modal" ng-click="vm.cancel()"></button>
     </span>

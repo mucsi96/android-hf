@@ -9,13 +9,14 @@
 		var emitter = Events.getEmitter();
 
 		if (window.Android) {
-			Android.log('Hello for webApp v3');
-			console.log = function(message) {
-				Android.log(message);
-			};
-			console.error = function(error) {
-				Android.error(error);
-			};
+			Android.log('Hello for webApp v11');
+			window.onerror = function(errorMessage, url, lineNumber) {
+				Android.error(angular.toJson({
+					errorMessage: errorMessage,
+					url: url,
+					lineNumber: lineNumber
+				}));	
+			}
 			console.log('Consoles redirected.');
 			console.log('Getting network status.');
 			Android.getNetworkStatus();
