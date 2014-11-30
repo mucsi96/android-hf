@@ -5,7 +5,7 @@
 		.module('app.layout')
 		.controller('ShellController', ShellController);
 
-	function ShellController (Events, config, Environment, AuthenticationProvider, $scope, $rootScope) {
+	function ShellController (Events, config, Environment, AuthenticationProvider, $scope, $rootScope, ServerStorage) {
 		var emitter = Events.getEmitter(),
 			vm = this;
 
