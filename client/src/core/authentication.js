@@ -13,7 +13,7 @@
 		if (!AuthenticationProvider) {
 			AuthenticationProvider = GoogleAuthenticationProvider;
 			AuthenticationProvider.on('authenticationInfo', function (authenticationInfo) {
-				storage.put('authenticationInfo', authenticationInfo);
+				Storage.put('authenticationInfo', authenticationInfo);
 				emitter.emit('authenticationInfoReady', authenticationInfo);
 			});
 			AuthenticationProvider.on('accessTokenReady', function (token) {
@@ -25,7 +25,7 @@
 			console.log('AuthenticationProvider found.');
 		}
 
-		function getAuthenticationInfo() {
+		function getAuthenticationInfoWrapper() {
 			var authenticationInfo = Storage.get('authenticationInfo');
 
 			if (authenticationInfo) {
@@ -36,20 +36,22 @@
 			}
 		}
 
-		function getAccessToken () {
+		function getAccessTokenWrapper () {
+			var authenticationInfo = Storage.get('authenticationInfo');
+
 			if (accessToken) {
 				emitter.emit('accessTokenReady', accessToken);
-			} else {
-				console.log('Requesting accessToken...');
-				AuthenticationProvider.getAccessToken();
+			} if(AuthenticationProvider.getAccessToken) {
+				AuthenticationProvider.getAuthenticationInfo();
 			}
 		}
 
 		window.onAuthenticationInfoReady = function (json) {
 			var authenticationInfo;
-			console.log('AuthenticationInfo ready: ' + json);
-			authenticationInfo = JSON.parse(json);
-			storage.put('authenticationInfo', authenticationInfo);
+			console.log('Parsing authentication info: ' + json);
+			authenticationInfo = angular.fromJson(json);
+			console.log('Authentication info ready:' + angular.fromJson(authenticationInfo));
+			Storage.put('authenticationInfo', authenticationInfo);
 			console.log('User name is: ' + authenticationInfo.userName);
 			emitter.emit('authenticationInfoReady', authenticationInfo);
 		}
@@ -61,8 +63,8 @@
 		}
 
 		return angular.extend({
-			getAuthenticationInfo: getAuthenticationInfo,
-			getAccessToken: getAccessToken,
+			getAuthenticationInfo: getAuthenticationInfoWrapper,
+			getAccessToken: getAccessTokenWrapper,
 		}, emitter.getListener());
 	}   
 

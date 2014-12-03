@@ -26,11 +26,16 @@ passport.use(new GooglePlusStrategy({
         return done(null, profile, tokens);
     }));
 
-function getUser(req) {
+/*function getUser(req) {
     if (req.isAuthenticated()) {
         return req.user;
     }
 }
+
+function getUserMiddleware(req, res, next) {
+    req.getUser = getUser;
+    next();
+}*/
 
 middleware.use(bodyParser.json());
 middleware.use(session({
@@ -40,17 +45,23 @@ middleware.use(session({
 }));
 middleware.use(passport.initialize());
 middleware.use(passport.session());
+//middleware.use(getUserMiddleware);
 middleware.all('/auth/google/callback', passport.authenticate('google'), function(req, res) {
     // Return user profile back to client
     res.send(req.user);
 });
 middleware.get('/auth/status', function(req, res) {
-    res.send({
-        connected: req.isAuthenticated(),
-        user: req.user || ''
-    });
+    if (req.user) {
+        res.send({
+            connected: true,
+            user: req.user
+        });
+    } else {
+        res.send({
+            connected: false
+        });
+    }
+    
 })
-
-middleware.getUser = getUser;
 
 module.exports = middleware;

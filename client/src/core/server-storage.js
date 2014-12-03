@@ -19,6 +19,7 @@
             }
         });
         AuthenticationProvider.on('authenticationInfoReady', function(data) {
+            console.log('AIR: ', data, Environment.isOnline());
             authInfo = data;
             if (Environment.isOnline()) {
                 if (serverConnected) {
@@ -39,7 +40,18 @@
             }
         });
 
+        Storage.on('change', function() {
+            if (Environment.isOnline()) {
+                if (serverConnected) {
+                    synchronize();
+                } else {
+                    connectToServer();
+                }
+            }
+        });
+
         function connectToServer() {
+            console.log('Connection to server');
             if (preCheck) {
                 if (accessToken) {
                     sendAuthenticationInfo();
@@ -98,7 +110,7 @@
 
         function synchronize() {
             console.log('Synchronizing...')
-            $http.post('/storage', Storage.get('wordsets'));
+            $http.post('/sync', { wordsets: Storage.get('wordsets')});
         }
     }
 

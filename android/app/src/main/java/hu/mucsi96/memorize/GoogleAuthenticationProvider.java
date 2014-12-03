@@ -35,18 +35,24 @@ public class GoogleAuthenticationProvider implements GoogleApiClient.ConnectionC
 
     @Override
     public void onConnected(Bundle bundle) {
-        String accountId = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient).getId();
-        String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
-        String userName = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient).getDisplayName();
+        if (mGoogleApiClient.isConnected()) {
+            String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
+            String accountId = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient).getId();
+            String userName = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient).getDisplayName();
 
-        mGoogleApiClient.disconnect();
-        AuthenticationInfo authenticationInfo = new AuthenticationInfo();
-        authenticationInfo.setId(accountId);
-        authenticationInfo.setUserName(userName);
-        authenticationInfo.setEmail(email);
+            mGoogleApiClient.disconnect();
+            AuthenticationInfo authenticationInfo = new AuthenticationInfo();
+            authenticationInfo.setId(accountId);
+            authenticationInfo.setUserName(userName);
+            authenticationInfo.setEmail(email);
 
-        Log.v(Globals.TAG, "AuthInfo: " + authenticationInfo.toJSON());
-        callbacks.onAuthenticationInfoReady(authenticationInfo);
+            Log.v(Globals.TAG, "AuthInfo: " + authenticationInfo.toJSON());
+            Log.v(Globals.TAG, "Getting access token for " + authenticationInfo.getEmail());
+            new GoogleTokenTask(context, callbacks).execute(authenticationInfo.getEmail());
+            callbacks.onAuthenticationInfoReady(authenticationInfo);
+        } else {
+            mGoogleApiClient.connect();
+        }
     }
 
     @Override
@@ -79,14 +85,8 @@ public class GoogleAuthenticationProvider implements GoogleApiClient.ConnectionC
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
+                .addScope(Plus.SCOPE_PLUS_PROFILE)
                 .build();
         mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void getAccessToken(String authenticationInfo) {
-        AuthenticationInfo ai = AuthenticationInfo.fromJSON(authenticationInfo);
-        Log.v(Globals.TAG, "Getting access token for " + ai.getEmail());
-        new GoogleTokenTask(context, callbacks).execute(ai.getEmail());
     }
 }

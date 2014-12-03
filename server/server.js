@@ -6,13 +6,15 @@ var express = require('express'),
 	staticMiddleware = require('./middlewares/static'),
 	appCacheMiddleware = require('./middlewares/app-cache'),
 	authenticationMiddleware = require('./middlewares/authentication'),
-	storageMiddleware = require('./middlewares/storage');
+	storageMiddleware = require('./middlewares/storage'),
+	dbMiddleware = require('./middlewares/db');
 
 app.use(httpsMiddleware);
-app.use(authenticationMiddleware);
-app.use(appCacheMiddleware);
-app.use(storageMiddleware);
 app.use(staticMiddleware);
+app.use(appCacheMiddleware);
+app.use(authenticationMiddleware);
+app.use(dbMiddleware);
+app.use(storageMiddleware);
 
 console.log('Server is running on ports 80 and 443');
 

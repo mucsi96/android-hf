@@ -11,6 +11,7 @@
 				var handlers = [];
 
 				function emit(event, data) {
+					console.log('Emitting ' + event, data, handlers);
 					handlers.forEach(function(subscription) {
 						if (subscription.event === event) {
 							subscription.handler(data);

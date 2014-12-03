@@ -13,6 +13,11 @@ import java.io.IOException;
 
 public class GoogleTokenTask  extends AsyncTask<String, Void, String> {
 
+    private final static String G_PLUS_SCOPE =
+            "oauth2:https://www.googleapis.com/auth/plus.login";
+    private final static String USERINFO_SCOPE =
+            "https://www.googleapis.com/auth/userinfo.profile";
+    private final static String SCOPES = G_PLUS_SCOPE + " " + USERINFO_SCOPE;
     private Activity context;
     private AuthenticationCallbacks callbacks;
 
@@ -24,10 +29,9 @@ public class GoogleTokenTask  extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String accountName = params[0];
-        String scopes = "oauth2:profile email";
         String token = null;
         try {
-            token = GoogleAuthUtil.getToken(context, accountName, scopes);
+            token = GoogleAuthUtil.getToken(context, accountName, SCOPES);
         } catch (IOException e) {
             Log.e(Globals.TAG, e.getMessage());
         } catch (UserRecoverableAuthException e) {

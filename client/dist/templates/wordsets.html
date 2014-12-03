@@ -1,16 +1,16 @@
 <section>
-    <div class="panel panel-default" data-ng-show="vm.wordsets">
+    <div class="panel panel-default" >
         <div class="panel-heading clearfix">
             <h3 class="pull-left" translate>WORDSETS</h3>
             <button class="btn btn-success fa fa-plus pull-right" data-ng-click="vm.create()" >
             </button>
         </div>
-        <div class="list-group">
+        <div class="list-group" data-ng-show="vm.wordsets">
             <a class="list-group-item clearfix" data-ng-repeat="wordset in vm.wordsets" ui-sref="wordset({wordsetId:wordset.id})">
                 <span class="pull-left" ng-bind="wordset.name"></span>
                 <span class="badge pull-right" ng-bind="wordset.words.length"></span>
             </a>
         </div>
+        <span data-ng-hide="vm.wordsets" translate>NO_WORDSETS</span>
     </div>
-    <span data-ng-hide="vm.wordsets" translate>NO_WORDSETS</span>
 </section>

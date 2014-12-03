@@ -8,7 +8,7 @@
 	function WordsetsController(Storage, $translate, uuid2) {
 		var vm = this;
 
-		vm.wordsets = Storage.get('wordsets');
+		vm.wordsets = Storage.get('wordsets') || [];
 
 		function create() {
 			vm.wordsets.push({
